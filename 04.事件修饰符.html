@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <style>
+        .inner {
+            height: 150px;
+            background-color: pink;
+        }
+        .outer {
+            padding: 40px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+<!--    <div class="inner" @click="divHandler">-->
+<!--    <input type="button" value="戳他" @click.stop="btnHandler">-->
+<!--        .stop不允许冒泡 设置后 .stop内的事件不再能够触发被.stop修饰的事件-->
+<!--    </div>-->
+<!--    <a href="http://www.baidu.com" @click.prevent="linkClick">有问题去百度</a>-->
+<!--    使用.prevent阻止默认事件 例如a的默认事件就是跳转到另一个网页-->
+
+<!--        <div class="inner" @click.capture="divHandler">-->
+<!--            <input type="button" value="戳他" @click="btnHandler">-->
+<!--        </div>-->
+<!--    .capture就是实现捕获触发事件的机制 就是从外层到内层触发事件-->
+
+<!--    <div class="inner" @click.self="divHandler">-->
+<!--        <input type="button" value="戳他" @click="btnHandler">-->
+<!--    </div>-->
+<!--    .self就是只有通过自己来触发事件 捕获或者冒泡都不能触发事件-->
+
+<!--    <a href="http://www.baidu.com" @click.prevent.once="linkClick">有问题去百度</a>-->
+<!--     事件修饰符可以串联 .once就是表达式内的行为（click）修饰符（.prevemt）都只触
+发一次 并且连前面的.prevent也只触发一次即点击第二次就会跳转到其他页面-->
+
+
+
+    <div class="outer" @click="div2Handler">
+            <div class="inner" @click.stop="divHandler">
+            <input type="button" value="戳他" @click="btnHandler">
+            </div>
+    </div>
+<!--.self 只会阻止自己的冒泡 .stop会阻止自己以上所有元素的事件-->
+    <div class="outer" @click="div2Handler">
+            <div class="inner" @click.self="divHandler">
+            <input type="button" value="戳他" @click="btnHandler">
+            </div>
+    </div>
+
+</div>
+<script>
+    var vm = new Vue({
+        el:'#app',
+        data:{},
+        methods:{
+            divHandler(){
+                console.log('这是触发了innerdiv的点击事件')
+            },
+            btnHandler(){
+                console.log('这是触发了btn的点击事件')
+            },
+            linkClick(){
+                console.log('这是触发了连接的点击事件')
+            },
+            div2Handler(){
+                console.log('这是触发了outterdiv的点击事件')
+            }
+        },
+    })
+</script>
+</body>
+</html>

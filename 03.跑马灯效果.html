@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="button" value="爬" @click="pa">
+    <input type="button" value="停" @click="stop">
+    <h4>
+        {{msg}}
+    </h4>
+</div>
+<script>
+    var vm =new Vue({
+        //在VM实例中如果想要调用data上的数据或者methods中的方法，必须通过this.数据属性名
+        //或者this.方法名来进行访问，这里的this.就表示我们new出来的vm对象
+        el:'#app',
+        data:{
+            msg:'我是铁憨批周美丽',
+            intervalId:null, //在data上定义一个定时器
+        },
+        methods:{
+            pa(){
+                // console.log(this.msg)
+                //箭头函数为了保持函数内的this与函数外的this指向一致
+                if (this.intervalId!=null) return;
+                this.intervalId = setInterval( () => {
+                    var start = this.msg.substring(0,1)
+                    var end = this.msg.substring(1)
+                    this.msg = end + start
+                },100)
+            },
+            stop(){
+                clearInterval(this.intervalId)
+                this.intervalId=null;
+            }
+        }
+    })
+
+
+
+
+
+//    第一个按钮绑定一个点击事件 v-on 或者 @
+//    在按钮事件处理函数中，写相关的业务逻辑代码 ，拿到msg字符串 然后调用字符串的
+    //substring方法来进行字符串的街区操作把第一个字符串截取出来放到最后一个字符
+    // 即可
+//    为了实现点击一下按钮自动截取的功能需要把第二步放到一个定时器中
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <style>
+        span {
+            color: pink;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <input type="button" value="爬" @click="start">
+    <input type="button" value="停" @click="stop">
+    <h4 v-html="msg"></h4>
+</div>
+<script>
+    var vm = new Vue ({
+        el:'#app',
+        data:{
+            msg:"圣诞节啊客户的收金卡的回家萨丹哈快圣诞节<span>我是个铁憨</span>批的SD卡了圣诞节了的卡四季度卡拉斯加",
+            intervalId:null,
+        },
+        methods:{
+            start(){
+                if (this.intervalId!=null) return;
+                this.intervalId = setInterval(()=>{
+                    var start = this.msg.substring(0,1)
+                    var end = this.msg.substring(1)
+                    this.msg = end + start
+                },1)
+            },
+            stop(){
+                clearInterval(this.intervalId)
+                this.intervalId=null
+            }
+        }
+    })
+</script>
+</body>
+</html>
